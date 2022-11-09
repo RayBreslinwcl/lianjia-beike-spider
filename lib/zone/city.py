@@ -46,15 +46,20 @@ def create_prompt_text():
     """
     city_info = list()
     count = 0
+    size = len(cities)
     for en_name, ch_name in cities.items():
         count += 1
         city_info.append(en_name)
         city_info.append(": ")
         city_info.append(ch_name)
-        if count % 4 == 0:
+        if count==size:
             city_info.append("\n")
         else:
-            city_info.append(", ")
+            if count % 4 == 0:
+                city_info.append("\n")
+            else:
+                city_info.append(", ")
+
     return 'Which city do you want to crawl?\n' + ''.join(city_info)
 
 
