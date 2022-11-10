@@ -114,9 +114,11 @@ class ErShouSpider_Each(BaseSpider):
                 # 作为对象保存
                 ershou = ErShou_Each(chinese_district, chinese_area, name, price, desc, pic,interest,publicday,xiaoqu)
                 city_ch = get_chinese_city(city_name)
+                date=house_elem.find('div', class_="houseInfo").text.split('|')[-2] #建造日期
+                date=re.findall("\d+",date)[0]
                 db.query('INSERT INTO xiaoqu_each (city, date, district, area, xiaoqu, price, sale,interest,publicday) '
                              'VALUES(:city, :date, :district, :area, :xiaoqu, :price, :sale, :interest,:publicday)',
-                             city=city_ch, date='2022', district=chinese_district, area=chinese_area, xiaoqu=xiaoqu, price=int(price.replace('万','')),
+                             city=city_ch, date=date, district=chinese_district, area=chinese_area, xiaoqu=xiaoqu, price=int(price.replace('万','')),
                              sale=1,interest=interest[0],publicday=publicday[0])
 
                 # ershou_list.append(ershou)
