@@ -28,14 +28,14 @@ DROP TABLE IF EXISTS `xiaoqu_each`;
 CREATE TABLE `xiaoqu_each` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `city` varchar(10) DEFAULT NULL,
-  `date` varchar(8) DEFAULT NULL,
+  `date` varchar(8) DEFAULT NULL, --建造年代
   `district` varchar(50) DEFAULT NULL,
   `area` varchar(50) DEFAULT NULL,
   `xiaoqu` varchar(100) DEFAULT NULL,
   `price` int(11) DEFAULT NULL,
   `sale` int(11) DEFAULT NULL,
-  `interest` varchar(50) DEFAULT NULL,
-  `publicday` varchar(50) DEFAULT NULL,
+  `interest` varchar(50) DEFAULT NULL, --关注人数
+  `publicday` varchar(50) DEFAULT NULL, --发布天数
   `create_time` timestamp DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
