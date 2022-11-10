@@ -17,6 +17,9 @@ from lib.zone.area import *
 from lib.utility.log import *
 import lib.utility.version
 
+import pymysql
+from lib.zone.city import *
+pymysql.install_as_MySQLdb()
 
 class ErShouSpider_Each(BaseSpider):
     def collect_area_ershou_data(self, city_name, area_name, fmt="csv"):
@@ -76,6 +79,9 @@ class ErShouSpider_Each(BaseSpider):
             print("\tWarning: only find one page for {0}".format(area_name))
             print(e)
 
+        import records
+        db = records.Database('mysql://root:123456@192.168.136.100/lianjia?charset=utf8', encoding='utf-8')
+        
         # 从第一页开始,一直遍历到最后一页
         for num in range(1, total_page + 1):
             page = 'http://{0}.{1}.com/ershoufang/{2}/pg{3}'.format(city_name, SPIDER_NAME, area_name, num)
@@ -107,7 +113,13 @@ class ErShouSpider_Each(BaseSpider):
 
                 # 作为对象保存
                 ershou = ErShou_Each(chinese_district, chinese_area, name, price, desc, pic,interest,publicday,xiaoqu)
-                ershou_list.append(ershou)
+                city_ch = get_chinese_city(city_name)
+                db.query('INSERT INTO xiaoqu_each (city, date, district, area, xiaoqu, price, sale,interest,publicday) '
+                             'VALUES(:city, :date, :district, :area, :xiaoqu, :price, :sale, :interest,:publicday)',
+                             city=city_ch, date='2022', district=chinese_district, area=chinese_area, xiaoqu=xiaoqu, price=int(price.replace('万','')),
+                             sale=1,interest=interest[0],publicday=publicday[0])
+
+                # ershou_list.append(ershou)
         return ershou_list
 
     def start(self):
