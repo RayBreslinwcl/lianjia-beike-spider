@@ -5,8 +5,10 @@
 # 获得指定城市的二手房数据
 
 from lib.spider.ershou_spider import *
+from lib.spider.ershou_spider_each import *
 
 if __name__ == "__main__":
-    spider = ErShouSpider(SPIDER_NAME)
+    # spider = ErShouSpider(SPIDER_NAME)
+    spider = ErShouSpider_Each(SPIDER_NAME)
     spider.start()
 
