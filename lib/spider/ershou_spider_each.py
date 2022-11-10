@@ -80,7 +80,7 @@ class ErShouSpider_Each(BaseSpider):
             print(e)
 
         import records
-        db = records.Database('mysql://root:123456@192.168.136.100/lianjia?charset=utf8', encoding='utf-8')
+        db = records.Database('mysql://root:123456@192.168.136.***/lianjia?charset=utf8', encoding='utf-8')
         
         # 从第一页开始,一直遍历到最后一页
         for num in range(1, total_page + 1):
